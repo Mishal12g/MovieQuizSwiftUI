@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		876C2D8A2ADACFE3006CC1A3 /* Butons+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876C2D892ADACFE3006CC1A3 /* Butons+Extensions.swift */; };
 		8779C0262ADAAD8C00302BF7 /* QuizQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8779C0252ADAAD8C00302BF7 /* QuizQuestion.swift */; };
 		8779C0282ADAAF6500302BF7 /* QuizStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8779C0272ADAAF6500302BF7 /* QuizStepViewModel.swift */; };
 		8779C02B2ADAB01300302BF7 /* QuestionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8779C02A2ADAB01300302BF7 /* QuestionFactory.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		876C2D892ADACFE3006CC1A3 /* Butons+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Butons+Extensions.swift"; sourceTree = "<group>"; };
 		8779C0252ADAAD8C00302BF7 /* QuizQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestion.swift; sourceTree = "<group>"; };
 		8779C0272ADAAF6500302BF7 /* QuizStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizStepViewModel.swift; sourceTree = "<group>"; };
 		8779C02A2ADAB01300302BF7 /* QuestionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFactory.swift; sourceTree = "<group>"; };
@@ -38,6 +40,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		876C2D882ADACFB4006CC1A3 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				876C2D892ADACFE3006CC1A3 /* Butons+Extensions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		876C2D8B2ADAD126006CC1A3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				87D819F92ADA6D6900F78789 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		8779C0232ADA8CF600302BF7 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,8 +104,9 @@
 				8779C0292ADAAFE000302BF7 /* Services */,
 				8779C0242ADA8D0E00302BF7 /* Models */,
 				8779C0232ADA8CF600302BF7 /* Presentation */,
-				87D819F92ADA6D6900F78789 /* Assets.xcassets */,
+				876C2D8B2ADAD126006CC1A3 /* Resources */,
 				87D819FB2ADA6D6900F78789 /* Preview Content */,
+				876C2D882ADACFB4006CC1A3 /* Helpers */,
 			);
 			path = MovieQuiz;
 			sourceTree = "<group>";
@@ -174,6 +193,7 @@
 				87D819F82ADA6D6800F78789 /* ContentView.swift in Sources */,
 				87D819F62ADA6D6800F78789 /* MovieQuizApp.swift in Sources */,
 				8779C02B2ADAB01300302BF7 /* QuestionFactory.swift in Sources */,
+				876C2D8A2ADACFE3006CC1A3 /* Butons+Extensions.swift in Sources */,
 				8779C0282ADAAF6500302BF7 /* QuizStepViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

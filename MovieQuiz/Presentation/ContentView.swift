@@ -43,32 +43,13 @@ struct ContentView: View {
                 .padding(.vertical, 13)
             
             HStack {
-                Button {
-                    viewModel.nextQuestion()
-                } label: {
-                    Text("Нет")
-                        .foregroundStyle(Color.ypBlack)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .font(.system(size: 20))
-                        .fontWeight(.medium)
-                }
-                .tint(.ypWhite)
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                
-                
-                Button {
+                customButtonStyle(action: {
                     
-                } label: {
-                    Text("Да")
-                        .foregroundStyle(Color.ypBlack)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .font(.system(size: 20))
-                        .fontWeight(.medium)
-                }
-                .tint(.ypWhite)
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
+                }, label: "Да")
+                
+                customButtonStyle(action: {
+                    
+                }, label: "Нет")
                 
             }
             .frame(maxHeight: 60)
@@ -91,7 +72,11 @@ protocol QuestionFactoryProtocol {
 }
 
 final class MovieQuizViewModel: ObservableObject{
-    var image: Image?
+    var image: Image? {
+        willSet {
+            self.objectWillChange.send()
+        }
+    }
     var indexLabel: Text?
     var questionLabel: Text?
     
@@ -122,6 +107,10 @@ final class MovieQuizViewModel: ObservableObject{
     }
     
     //MARK: - Privates methods
+    private func showResultBorderImage() {
+        //        image?.
+    }
+    
     private func convert(question: QuizQuestion?) -> QuizStepViewModel? {
         guard let question = question else { return nil}
         let viewModel = QuizStepViewModel(image: Image(question.image), question: question.text, questionNumber: "\(currentIndex)/10")
