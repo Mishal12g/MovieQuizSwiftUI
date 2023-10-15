@@ -11,9 +11,10 @@ import Combine
 struct ContentView: View {
     
     @ObservedObject var viewModel = MovieQuizViewModel()
+    @State var isActive = true
     
     var body: some View {
-        
+        let color: Color = isActive ? Color.ypGreen : Color.ypRed
         VStack {
             HStack{
                 Text("Вопрос:")
@@ -29,10 +30,11 @@ struct ContentView: View {
                     .font(.system(size: 20))
                 
             }
-            viewModel.image?
-                .resizable()
-                .cornerRadius(15)
-                .padding(.vertical, 20)
+            if isActive {
+                ImageView(image: viewModel.image!).bady.previewLayout(.sizeThatFits)
+            } else {
+                ImageView(image: viewModel.image!, color: color).badyTwo .previewLayout(.sizeThatFits)
+            }
             
             viewModel.questionLabel?
                 .foregroundStyle(Color.ypWhite)
@@ -44,17 +46,15 @@ struct ContentView: View {
             
             HStack {
                 customButtonStyle(action: {
-                    
-                }, label: "Да")
+                    isActive.toggle()
+                }, label: "Нет")
                 
                 customButtonStyle(action: {
                     
-                }, label: "Нет")
-                
+                }, label: "Да")
             }
             .frame(maxHeight: 60)
             .padding(.vertical, 20)
-            
             
         }
         .padding(.horizontal, 20)
@@ -107,10 +107,6 @@ final class MovieQuizViewModel: ObservableObject{
     }
     
     //MARK: - Privates methods
-    private func showResultBorderImage() {
-        //        image?.
-    }
-    
     private func convert(question: QuizQuestion?) -> QuizStepViewModel? {
         guard let question = question else { return nil}
         let viewModel = QuizStepViewModel(image: Image(question.image), question: question.text, questionNumber: "\(currentIndex)/10")
