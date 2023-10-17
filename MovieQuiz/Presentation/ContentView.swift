@@ -9,12 +9,11 @@ import SwiftUI
 import Combine
 
 struct ContentView: View {
-    
     @ObservedObject var viewModel = MovieQuizViewModel()
-    @State var isActive = true
+    @State var isCorrect: AnswerState = .normal
     
     var body: some View {
-        let color: Color = isActive ? Color.ypGreen : Color.ypRed
+        
         VStack {
             HStack{
                 Text("Вопрос:")
@@ -28,12 +27,16 @@ struct ContentView: View {
                     .foregroundStyle(Color.ypWhite)
                     .fontWeight(.medium)
                     .font(.system(size: 20))
-                
             }
-            if isActive {
-                ImageView(image: viewModel.image!).bady.previewLayout(.sizeThatFits)
-            } else {
-                ImageView(image: viewModel.image!, color: color).badyTwo .previewLayout(.sizeThatFits)
+            
+            switch isCorrect {
+            case .correct:
+                ImageView(image: viewModel.image!, color: Color.ypGreen).badyTwo .previewLayout(.sizeThatFits)
+            case .incorrect:
+                ImageView(image: viewModel.image!, color: Color.ypRed).badyTwo .previewLayout(.sizeThatFits)
+            case .normal:
+                ImageView(image: viewModel.image!).bady
+                    .previewLayout(.sizeThatFits)
             }
             
             viewModel.questionLabel?
@@ -46,11 +49,11 @@ struct ContentView: View {
             
             HStack {
                 customButtonStyle(action: {
-                    isActive.toggle()
+                    isCorrect = viewModel.onNoButton()
                 }, label: "Нет")
                 
                 customButtonStyle(action: {
-                    
+                    isCorrect = viewModel.onYesButton()
                 }, label: "Да")
             }
             .frame(maxHeight: 60)
@@ -106,6 +109,19 @@ final class MovieQuizViewModel: ObservableObject{
         show()
     }
     
+    func onYesButton() -> AnswerState {
+        guard let isCorrect = currentQuestion?.correctAnswer else { return .normal }
+        
+        nextQuestion()
+        return isCorrect == true ? .correct : .incorrect
+    }
+    
+    func onNoButton() -> AnswerState {
+        guard let isCorrect = currentQuestion?.correctAnswer else { return .normal }
+        nextQuestion()
+        return isCorrect == false ? .correct : .incorrect
+    }
+    
     //MARK: - Privates methods
     private func convert(question: QuizQuestion?) -> QuizStepViewModel? {
         guard let question = question else { return nil}
@@ -129,4 +145,8 @@ extension MovieQuizViewModel: QuestionFactoryProtocol {
     func didReceiveNextQuestion(question: QuizQuestion) {
         currentQuestion = question
     }
+}
+
+enum AnswerState {
+    case correct, incorrect, normal
 }

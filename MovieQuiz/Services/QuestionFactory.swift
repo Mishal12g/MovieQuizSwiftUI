@@ -11,13 +11,13 @@ final class QuestionFactory {
     private let delegate: QuestionFactoryProtocol?
     
     let movies: [QuizQuestion] = [QuizQuestion(image: "Deadpool",
-                                               text: "5",
+                                               text: "2",
                                                correctAnswer: true),
                                   QuizQuestion(image: "Kill Bill",
                                                text: "7",
                                                correctAnswer: true),
                                   QuizQuestion(image: "Old",
-                                               text: "9",
+                                               text: "4",
                                                correctAnswer: true),
                                   QuizQuestion(image: "Tesla",
                                                text: "5",
@@ -32,7 +32,7 @@ final class QuestionFactory {
                                                text: "5",
                                                correctAnswer: true),
                                   QuizQuestion(image: "The Green Knight",
-                                               text: "9",
+                                               text: "2",
                                                correctAnswer: true),
                                   QuizQuestion(image: "The Ice Age Adventures of Buck Wild",
                                                text: "10",
@@ -46,9 +46,10 @@ final class QuestionFactory {
     }
     
     func nextQuestion() {
-        guard let index = (1..<movies.count).randomElement() else { return }
+        guard let index = (1..<movies.count).randomElement(),
+        let num = Float(movies[index].text) else { return }
         
-        let isMore = Float(movies[index].text) ?? 0 < 5
+        let isMore = num < 5
         let text = "Рейтинг этого фильма меньше чем 5?"
         let image = movies[index].image
         let question = QuizQuestion(image: image, text: text, correctAnswer: isMore)
