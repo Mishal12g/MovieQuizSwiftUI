@@ -50,10 +50,13 @@ struct ContentView: View {
             HStack {
                 customButtonStyle(action: {
                     isCorrect = viewModel.onNoButton()
+                    viewModel.nextQuestion()
+                    hideBoarder()
                 }, label: "Нет")
                 
                 customButtonStyle(action: {
                     isCorrect = viewModel.onYesButton()
+                    hideBoarder()
                 }, label: "Да")
             }
             .frame(maxHeight: 60)
@@ -64,6 +67,12 @@ struct ContentView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.ypBlack)
     }
+    func hideBoarder() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            isCorrect = .normal
+        }
+    }
+    
 }
 
 #Preview {
@@ -80,6 +89,7 @@ final class MovieQuizViewModel: ObservableObject{
             self.objectWillChange.send()
         }
     }
+    
     var indexLabel: Text?
     var questionLabel: Text?
     
@@ -104,9 +114,13 @@ final class MovieQuizViewModel: ObservableObject{
     
     //MARK: - Public methods
     func nextQuestion() {
-        questionFactory?.nextQuestion()
-        currentIndex = currentIndex < 10 ? currentIndex + 1 : 1
-        show()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [ weak self] in
+            guard let self = self else { return }
+            
+            self.questionFactory?.nextQuestion()
+            self.currentIndex = currentIndex < 10 ? currentIndex + 1 : 1
+            self.show()
+        }
     }
     
     func onYesButton() -> AnswerState {
